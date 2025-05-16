@@ -1,21 +1,29 @@
 // screens/PostConfessionScreen.js
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
+import { useConfessions } from '../contexts/ConfessionsContext'; // Import the hook
 // import { TextInput as PaperTextInput, Button as PaperButton } from 'react-native-paper';
 
 function PostConfessionScreen({ navigation }) {
   const [confessionText, setConfessionText] = useState('');
+  const { addConfession } = useConfessions(); // Get addConfession from context
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (confessionText.trim() === '') {
       Alert.alert('Empty Confession', 'Please write something before posting.');
       return;
     }
-    // Logic to submit confession to backend will go here
-    console.log('Confession to post:', confessionText);
-    Alert.alert('Posted!', 'Your confession has been posted anonymously.');
-    setConfessionText('');
-    navigation.goBack(); // Go back to the feed
+
+    // Logic to submit confession to backend will go here    
+    try {
+      await addConfession(confessionText); // Use the context function
+      Alert.alert('Posted!', 'Your confession has been posted anonymously.');
+      setConfessionText('');
+      navigation.goBack();
+    } catch (error) {
+      // Error is already handled in context, but you can add more specific UI feedback here
+      console.error("Submit error in screen:", error);
+    }
   };
 
   return (
