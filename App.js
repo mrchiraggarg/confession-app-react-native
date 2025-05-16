@@ -6,6 +6,7 @@ import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper'; //
 
 import ConfessionsFeedScreen from './screens/ConfessionsFeedScreen';
 import PostConfessionScreen from './screens/PostConfessionScreen';
+import { ConfessionsProvider } from './contexts/ConfessionsContext';
 
 const Stack = createStackNavigator();
 
@@ -21,28 +22,30 @@ const theme = {
 
 export default function App() {
   return (
-    <PaperProvider theme={theme}> {/* Wrap with PaperProvider */}
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName="ConfessionsFeed"
-          screenOptions={{
-            headerStyle: { backgroundColor: theme.colors.primary },
-            headerTintColor: '#fff',
-            headerTitleStyle: { fontWeight: 'bold' },
-          }}
-        >
-          <Stack.Screen
-            name="ConfessionsFeed"
-            component={ConfessionsFeedScreen}
-            options={{ title: 'Anonymous Confessions' }}
-          />
-          <Stack.Screen
-            name="PostConfession"
-            component={PostConfessionScreen}
-            options={{ title: 'Post a Secret' }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </PaperProvider>
+    <ConfessionsProvider>
+      <PaperProvider theme={theme}> {/* Wrap with PaperProvider */}
+        <NavigationContainer>
+          <Stack.Navigator
+            initialRouteName="ConfessionsFeed"
+            screenOptions={{
+              headerStyle: { backgroundColor: theme.colors.primary },
+              headerTintColor: '#fff',
+              headerTitleStyle: { fontWeight: 'bold' },
+            }}
+          >
+            <Stack.Screen
+              name="ConfessionsFeed"
+              component={ConfessionsFeedScreen}
+              options={{ title: 'Anonymous Confessions' }}
+            />
+            <Stack.Screen
+              name="PostConfession"
+              component={PostConfessionScreen}
+              options={{ title: 'Post a Secret' }}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </ConfessionsProvider>
   );
 }
