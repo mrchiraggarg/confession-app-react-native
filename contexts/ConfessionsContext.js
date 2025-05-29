@@ -21,6 +21,26 @@ export const ConfessionsProvider = ({ children }) => {
         // Firebase logic will go here
     }, []);
 
+    useEffect(() => {
+        setLoading(true);
+        const unsubscribe = db.collection('confessions')
+            .orderBy('createdAt', 'desc') // Show newest first
+            .onSnapshot(snapshot => { // This is the real-time listener
+                const confessionsData = snapshot.docs.map(doc => ({
+                    id: doc.id,
+                    ...doc.data(),
+                }));
+                setConfessions(confessionsData);
+                setLoading(false);
+            }, error => {
+                console.error("Error fetching confessions: ", error);
+                Alert.alert("Error", "Could not fetch confessions.");
+                setLoading(false);
+            });
+
+        return () => unsubscribe(); // Cleanup: Unsubscribe when the component/context unmounts
+    }, []); // Empty dependency array means this runs once on mount and cleans up on unmount
+
     const addConfession = async (text) => {
         if (!text.trim()) return; // Basic validation
         try {
