@@ -18,7 +18,7 @@ const ConfessionsFeedScreen = () => {
       renderItem={({ item }) => (
         <Card style={styles.card}>
           <Card.Content>
-            <Text>{item.text}</Text>
+            <Text variant="bodyMedium">{item.text}</Text>
           </Card.Content>
         </Card>
       )}
