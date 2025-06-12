@@ -1,6 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { db, serverTimestamp } from '../firebaseConfig';
 import { collection, onSnapshot, addDoc, query, orderBy } from "firebase/firestore";
+import { Text } from 'react-native';
 
 const ConfessionsContext = createContext();
 
@@ -24,7 +25,7 @@ export const ConfessionsProvider = ({ children }) => {
 
   const addConfession = async (text) => {
     await addDoc(collection(db, "confessions"), {
-      text,
+      text: <Text>{text}</Text>,
       createdAt: serverTimestamp()
     });
   };
