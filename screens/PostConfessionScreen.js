@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { TextInput, Button, Snackbar } from 'react-native-paper';
 import { useConfessions } from '../contexts/ConfessionsContext';
 
@@ -27,10 +27,10 @@ const PostConfessionScreen = ({ navigation }) => {
         style={styles.input}
       />
       <Button mode="contained" onPress={handleSubmit}>
-        Submit
+        <Text>Submit</Text>
       </Button>
       <Snackbar visible={visible} onDismiss={() => setVisible(false)} duration={2000}>
-        Confession Posted!
+        <Text>Confession Posted!</Text>
       </Snackbar>
     </View>
   );
