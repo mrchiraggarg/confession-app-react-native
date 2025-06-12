@@ -25,24 +25,9 @@ export default function App() {
     <ConfessionsProvider>
       <PaperProvider theme={theme}> {/* Wrap with PaperProvider */}
         <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="ConfessionsFeed"
-            screenOptions={{
-              headerStyle: { backgroundColor: theme.colors.primary },
-              headerTintColor: '#fff',
-              headerTitleStyle: { fontWeight: 'bold' },
-            }}
-          >
-            <Stack.Screen
-              name="ConfessionsFeed"
-              component={ConfessionsFeedScreen}
-              options={{ title: 'Anonymous Confessions' }}
-            />
-            <Stack.Screen
-              name="PostConfession"
-              component={PostConfessionScreen}
-              options={{ title: 'Post a Secret' }}
-            />
+          <Stack.Navigator initialRouteName="ConfessionsFeed">
+            <Stack.Screen name="ConfessionsFeed" component={ConfessionsFeedScreen} />
+            <Stack.Screen name="PostConfession" component={PostConfessionScreen} />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
